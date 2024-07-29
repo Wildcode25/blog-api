@@ -9,6 +9,6 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
-app.use('/api/blogs/', createBlogRouter(Blog))
+app.use('/api/blogs', createBlogRouter(Blog))
 
 export {app}

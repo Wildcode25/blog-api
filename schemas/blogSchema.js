@@ -6,3 +6,5 @@ export const blogSchema = new mongoose.Schema({
     url: String,
     likes: Number
   })
+
+  blogSchema.set('toJSON',)

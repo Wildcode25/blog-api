@@ -1,19 +1,22 @@
 export class BlogController{
     constructor(Blog){
-        this.Blog = new Blog()
+      this.BlogModel = Blog
     }
-    getAllBlogs = (request, response) => {
-        this.Blog
-          .find({})
-          .then(blogs => {
-            response.json(blogs)
-          })
+    getAllBlogs = async (req, res, next) => {
+      try{
+        const blogs = await this.BlogModel.find({})
+        res.status(200).json(blogs)
+      }catch(e){
+        console.error("Error getting "+ e.message)
+        next(error)
+      }
+        
+          
       }
       
       createBlog =(request, response) => {
-        const blog = new Blog(request.body)
-      
-        this.blog
+        const blog = new this.BlogModel()
+        blog
           .save()
           .then(result => {
             response.status(201).json(result)
