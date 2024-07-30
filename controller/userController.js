@@ -17,8 +17,7 @@ export class UserController{
                 hashedPassword
             })
             const createdUser = await user.save()
-            console.log(createdUser.hashedPassword)
-            res.status(201).json()
+            res.status(201).json(createdUser)
         }catch(e){
 
         }
