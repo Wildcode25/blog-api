@@ -35,7 +35,7 @@ export class UserController {
   };
   userLogin = async (req, res, next) => {
     const { username, password } = req.body;
-
+    console.log(username)
     try {
       const [user] = await this.UserModel.find({username});
       const passwordIsCorrect = await bcrypt.compare(password, user.hashedPassword);
@@ -49,10 +49,12 @@ export class UserController {
             SECRET,
             { expiresIn: 60*60 }
           )
-          res.set('Authorization', `Bearer ${token}`);
+          
           return res
             .status(200)
-            .send({ token, username: user.username, name: user.name })
+            .send({ token, username: user.username, message: {
+              content: `User logged successfuly`
+            } })
           ;
       }
       res.status(400).json({ message: "incorrect password" });

@@ -23,7 +23,9 @@ export class BlogController {
       const createdBlog = await blog.save();
       user.notes = user.notes.concat(createdBlog._id)
       await user.save()
-      res.status(201).json(createdBlog);
+      res.status(201).json({createdBlog, message: {
+        content: `Blog ${createdBlog.title} by ${createdBlog.author} is created`
+      }});
     } catch (e) {
       next(e)
     }
@@ -37,7 +39,7 @@ export class BlogController {
       });
       res.status(203).json(updatedBlog);
     } catch (e) {
-      res.status(400).json();
+      next(e)
     }
   };
   deleteBlog = async (req, res)=>{
