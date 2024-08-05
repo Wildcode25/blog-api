@@ -30,8 +30,8 @@ export class BlogController {
       next(e)
     }
   };
-  updateBlog = async (req, res) => {
-    const { id } = req.body;
+  updateBlog = async (req, res, next) => {
+    const { id } = req.params;
     const blog = req.body;
     try {
       const updatedBlog = await this.BlogModel.findByIdAndUpdate(id, blog, {
@@ -50,7 +50,7 @@ export class BlogController {
      
       if( user.toString() !== req.session.user.id.toString() ) return res.status(401).json({message: "you are not the author"})
       await this.BlogModel.findByIdAndDelete(id)
-      res.status(204).json({})
+      res.status(204).json({content: `blog delected successfuly`})
     }catch(e){
       console.error(e.message)
     } 
